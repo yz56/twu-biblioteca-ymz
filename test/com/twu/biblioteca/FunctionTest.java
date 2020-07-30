@@ -33,7 +33,7 @@ public class FunctionTest {
         Book book0 = new Book(0,"book0","Tony",1993, true);
         Book book1 = new Book(1,"book1","Jenny",1991, false);
 
-        assertEquals(true, app.checkoutBook(book0));
+        assertEquals(true,  app.checkoutBook(book0));
         assertEquals(false, app.checkoutBook(book1));
     }
     @Test
@@ -45,5 +45,4 @@ public class FunctionTest {
         assertEquals(false, app.findBookByName("", staticBooks));
         assertEquals(false, app.findBookByName(null, staticBooks));
     }
-
 }
