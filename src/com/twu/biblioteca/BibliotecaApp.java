@@ -39,6 +39,10 @@ public class BibliotecaApp {
         return choiceMenu(choice, books);
     }
 
+    public List<Book> getAllBooks() {
+        return staticBooks;
+    }
+
     public boolean choiceMenu(String choice, List<Book> books) {
         switch (choice){
             case "1":
@@ -57,37 +61,6 @@ public class BibliotecaApp {
                 break;
         }
         return false;
-    }
-
-    public void returnBook(List<Book> books) {
-        System.out.print("Please input the name of book you want to return.: ");
-        Scanner s = new Scanner(System.in);
-        String bookName = s.next();
-
-        if(findBookByName(bookName, books)){
-            System.out.println("Thank you for returning the book.");
-        }else{
-            System.out.println("That is not a valid book to return.");
-        }
-
-    }
-
-    public boolean findBookByName(String bookName, List<Book> books) {
-        if(bookName == null) return false;
-        boolean res = false;
-        for (Book book : books){
-            if(bookName.equals(book.getName()))
-                res = true;
-        }
-        return res;
-    }
-
-    private static void startApp() {
-        System.out.println(welcomeMessage);
-    }
-
-    public List<Book> getAllBooks() {
-        return staticBooks;
     }
 
     public void viewBookList(List<Book> books) {
@@ -128,14 +101,37 @@ public class BibliotecaApp {
         }
     }
 
-    public boolean checkoutBook(Book book) {
-        return book.getIsValid();
-    }
-
     private static void detailOfBook(Book book) {
         System.out.println("Detail of this book:");
         System.out.println("Name: " + book.getName());
         System.out.println("Author: " + book.getAuthor());
         System.out.println("Publish Year: " + book.getPublishYear());
+    }
+
+    public boolean checkoutBook(Book book) {
+        return book.getIsValid();
+    }
+
+    public void returnBook(List<Book> books) {
+        System.out.print("Please input the name of book you want to return.: ");
+        Scanner s = new Scanner(System.in);
+        String bookName = s.next();
+
+        if(findBookByName(bookName, books)){
+            System.out.println("Thank you for returning the book.");
+        }else{
+            System.out.println("That is not a valid book to return.");
+        }
+
+    }
+
+    public boolean findBookByName(String bookName, List<Book> books) {
+        if(bookName == null) return false;
+        boolean res = false;
+        for (Book book : books){
+            if(bookName.equals(book.getName()))
+                res = true;
+        }
+        return res;
     }
 }

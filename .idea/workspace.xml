@@ -51,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+            <state relative-caret-position="131">
+              <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#327#333#0" expanded="true" />
@@ -113,7 +113,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="32" />
     <option name="y" value="58" />
     <option name="width" value="1683" />
@@ -346,7 +346,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32911393" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32911393" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.39873418" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36708862" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -417,8 +417,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+        <state relative-caret-position="131">
+          <caret line="101" column="16" lean-forward="true" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#327#333#0" expanded="true" />
