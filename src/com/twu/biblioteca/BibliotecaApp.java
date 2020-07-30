@@ -86,6 +86,7 @@ public class BibliotecaApp {
                 String input = s.next();
                 if (input.equals("y") || input.equals("Y")) {
                     if (checkoutBook(books.get(num))) {
+                        staticBooks.get(num).setValid(false);
                         System.out.println("Thank you! Enjoy the book.");
                     } else {
                         System.out.println("Sorry, that book is not available.");
@@ -116,21 +117,21 @@ public class BibliotecaApp {
         Scanner s = new Scanner(System.in);
         String bookName = s.next();
 
-        if(findBookByName(bookName, books)){
+        int id = findBookByName(bookName, books);
+        if(id != -1){
+            staticBooks.get(id).setValid(true);
             System.out.println("Thank you for returning the book.");
         }else{
             System.out.println("That is not a valid book to return.");
         }
-
     }
 
-    public boolean findBookByName(String bookName, List<Book> books) {
-        if(bookName == null) return false;
-        boolean res = false;
+    public int findBookByName(String bookName, List<Book> books) {
+        if(bookName == null) return -1;
         for (Book book : books){
             if(bookName.equals(book.getName()))
-                res = true;
+                return book.getId();
         }
-        return res;
+        return -1;
     }
 }

@@ -5,6 +5,11 @@ public class Book {
     private String name;
     private String author;
     private int publishYear;
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
     private boolean isValid;
 
     public Book(int id, String name, String author, int publishYear, boolean isValid) {
