@@ -12,7 +12,7 @@ public class BibliotecaApp {
     static Book book0 = new Book(0,"book0","Tony",1993, true);
     static Book book1 = new Book(1,"book1","Jenny",1991, true);
     static Book book2 = new Book(2,"book2","Jim",2020, true);
-    static Book book3 = new Book(2,"book3","Bob",1888, false);
+    static Book book3 = new Book(3,"book3","Bob",1888, false);
     static{
         staticBooks.add(book0);
         staticBooks.add(book1);
@@ -74,33 +74,37 @@ public class BibliotecaApp {
                     System.out.println(book.getName());
                 }
             }
-            int num;
+            int id;
             try{
                 Scanner s = new Scanner(System.in);
-                num = s.nextInt();
-                detailOfBook(books.get(num));
+                id = s.nextInt();
+                if(books.get(id).getIsValid()){
+                    detailOfBook(books.get(id));
+                    while(true) {
+                        System.out.println("Would you want to borrow this book?");
+                        System.out.println("Press y/Y(Yes) | n/N (No) to continue.");
+                        s = new Scanner(System.in);
+                        String input = s.next();
+                        if (input.equals("y") || input.equals("Y")) {
+                            if (checkoutBook(books.get(id))) {
+                                staticBooks.get(id).setValid(false);
+                                System.out.println("Thank you! Enjoy the book.");
+                            } else {
+                                System.out.println("Sorry, that book is not available.");
+                            }
+                            return ;
+                        } else if (input.equals("n") || input.equals("N")) {
+                            return ;
+                        } else {
+                            System.out.println("Input error! ");
+                        }
+                    }
+                }else{
+                    System.out.println("Sorry, that book is not available.");
+                }
             }catch (Exception e){
                 System.out.println("Input error.Please input number in the list.");
                 continue;
-            }
-            while(true) {
-                System.out.println("Would you want to borrow this book?");
-                System.out.println("Press y/Y(Yes) | n/N (No) to continue.");
-                Scanner s = new Scanner(System.in);
-                String input = s.next();
-                if (input.equals("y") || input.equals("Y")) {
-                    if (checkoutBook(books.get(num))) {
-                        staticBooks.get(num).setValid(false);
-                        System.out.println("Thank you! Enjoy the book.");
-                    } else {
-                        System.out.println("Sorry, that book is not available.");
-                    }
-                    return ;
-                } else if (input.equals("n") || input.equals("N")) {
-                    return ;
-                } else {
-                    System.out.println("Input error! ");
-                }
             }
         }
     }
@@ -122,8 +126,10 @@ public class BibliotecaApp {
         String bookName = s.next();
 
         int id = findBookByName(bookName, books);
+        System.out.println("id = " + id);;
         if(id != -1){
             staticBooks.get(id).setValid(true);
+            System.out.println(staticBooks.get(id).getIsValid());
             System.out.println("Thank you for returning the book.");
         }else{
             System.out.println("That is not a valid book to return.");
