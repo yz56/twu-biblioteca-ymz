@@ -67,8 +67,10 @@ public class BibliotecaApp {
             System.out.println("\nWhich book you want？ Please input the number of book to see details");
             System.out.println("Book list:");
             for (Book book : books){
-                System.out.print(book.getId()+ " - ");
-                System.out.println(book.getName());
+                if(book.getIsValid()){
+                    System.out.print(book.getId()+ " - ");
+                    System.out.println(book.getName());
+                }
             }
             int num;
             try{
