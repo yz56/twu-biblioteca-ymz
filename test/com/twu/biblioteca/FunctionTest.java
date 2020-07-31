@@ -51,4 +51,12 @@ public class FunctionTest {
     public void viewMovieListTest() {
         assertEquals(staticMovies, app.getAllMovies());
     }
+    @Test
+    public void checkUserTest() {
+        assertEquals(true, app.checkUser("111-1111","1"));
+        assertEquals(true, app.checkUser("222-2222","2"));
+        assertEquals(false, app.checkUser("invalidUsername","1"));
+        assertEquals(false, app.checkUser("111-1111","wrongPassword"));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class BibliotecaApp {
     public static String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     public static List<Book> staticBooks = new ArrayList<Book>();
     public static List<Movie> staticMovies = new ArrayList<Movie>();
+    public static List<User> userList = new ArrayList<User>();
     static {
         Book book0 = new Book(0, "book0", "Tony", 1993, true);
         Book book1 = new Book(1, "book1", "Jenny", 1991, true);
@@ -26,6 +28,10 @@ public class BibliotecaApp {
         staticMovies.add(movie0);
         staticMovies.add(movie1);
         staticMovies.add(movie2);
+        User user0 = new User(0,"111-1111","1","xiaohua123@gmail.com","13349392048");
+        User user1 = new User(0,"222-2222","2","xiaogou124@gmail.com","13549392047");
+        userList.add(user0);
+        userList.add(user1);
     }
 
     public static void main(String[] args) {
@@ -99,11 +105,22 @@ public class BibliotecaApp {
                         s = new Scanner(System.in);
                         String input = s.next();
                         if (input.equals("y") || input.equals("Y")) {
-                            if (checkoutBook(books.get(id))) {
-                                staticBooks.get(id).setValid(false);
-                                System.out.println("Thank you! Enjoy the book.");
-                            } else {
-                                System.out.println("Sorry, that book is not available.");
+                            System.out.print("Please input username:");
+                            s = new Scanner(System.in);
+                            String username = s.next();
+                            System.out.print("Please input password:");
+                            String password = s.next();
+                            boolean res = checkUser(username, password);
+                            if(res){
+                                if (checkoutBook(books.get(id))) {
+                                    staticBooks.get(id).setValid(false);
+                                    System.out.println("Thank you! Enjoy the book.");
+                                } else {
+                                    System.out.println("Sorry, that book is not available.");
+                                }
+
+                            }else{
+                                System.out.println("Sorry, username or password input error.");
                             }
                             return;
                         } else if (input.equals("n") || input.equals("N")) {
@@ -120,6 +137,19 @@ public class BibliotecaApp {
                 continue;
             }
         }
+    }
+
+    public boolean checkUser(String username, String password) {
+        for(User u : userList){
+            if(username.equals(u.getName())){
+                if(password.equals(u.getPassword())){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
     private static void detailOfBook(Book book) {
