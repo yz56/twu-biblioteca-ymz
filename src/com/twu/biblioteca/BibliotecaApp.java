@@ -10,17 +10,22 @@ public class BibliotecaApp {
     public static String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     public static List<Book> staticBooks = new ArrayList<Book>();
     static Book book0 = new Book(0,"book0","Tony",1993, true);
-    static Book book1 = new Book(1,"book1","Jenny",1991, true);
-    static Book book2 = new Book(2,"book2","Jim",2020, true);
-    static Book book3 = new Book(3,"book3","Bob",1888, false);
     static{
+        Book book0 = new Book(0,"book0","Tony",1993, true);
+        Book book1 = new Book(1,"book1","Jenny",1991, true);
+        Book book2 = new Book(2,"book2","Jim",2020, true);
+        Book book3 = new Book(3,"book3","Bob",1888, false);
         staticBooks.add(book0);
         staticBooks.add(book1);
         staticBooks.add(book2);
         staticBooks.add(book3);
     }
 
+
     public static void main(String[] args) {
+        System.out.println(
+                staticBooks.get(0));
+        System.out.println(book0);
         BibliotecaApp app = new BibliotecaApp();
         boolean quit = false;
         while(!quit){
@@ -56,6 +61,9 @@ public class BibliotecaApp {
                 break;
             case "3":
                 System.out.println("Bye!");
+                return true;
+            case "4":
+
                 return true;
             default:
                 System.out.println("Please select a valid option!");
