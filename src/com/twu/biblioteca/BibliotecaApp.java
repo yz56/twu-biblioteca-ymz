@@ -279,10 +279,18 @@ public class BibliotecaApp {
         boolean res = checkUser(user_password[0], user_password[1]);
         if(res){
             User user = findUser(user_password[0]);
-            System.out.println("Personal Information:");
+            System.out.println("\nPersonal Information:");
             System.out.println("Name: " + user.getName());
             System.out.println("Email: " + user.getEmail());
             System.out.println("Phone: " + user.getPhone());
         }
+    }
+
+    public User findUser(String s) {
+        for (User user : userList){
+            if(s.equals(user.getName()))
+                return user;
+        }
+        return null;
     }
 }
