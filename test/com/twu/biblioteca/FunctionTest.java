@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,9 +25,10 @@ public class FunctionTest {
     @Test
     public void choiceMenuTest() {
         List<Book> books = new ArrayList<>();
-        assertEquals(false, app.choiceMenu("1",books));
-        assertEquals(false, app.choiceMenu("2",books));
-        assertEquals(true, app.choiceMenu("3",books));
+        List<Movie> movies = new ArrayList<>();
+        assertEquals(false, app.choiceMenu("1",books, movies));
+        assertEquals(false, app.choiceMenu("2",books, movies));
+        assertEquals(true, app.choiceMenu("3",books, movies));
     }
     @Test
     public void checkoutTest() {
@@ -44,5 +46,9 @@ public class FunctionTest {
         assertEquals(false, app.findBookByName("invalid name", staticBooks));
         assertEquals(false, app.findBookByName("", staticBooks));
         assertEquals(false, app.findBookByName(null, staticBooks));
+    }
+    @Test
+    public void viewMovieListTest() {
+        assertEquals(staticMovies, app.getAllMovies());
     }
 }

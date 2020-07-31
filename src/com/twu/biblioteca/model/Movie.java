@@ -8,13 +8,12 @@ public class Movie {
     private int rating;
     private boolean isValid;
 
-    public Movie(int id, String name, String director, int year, int rating, boolean isValid) {
+    public Movie(int id, String name, String director, int year, int rating) {
         this.id = id;
         this.name = name;
         this.director = director;
         this.year = year;
         this.rating = rating;
-        this.isValid = isValid;
     }
 
     public String getName() {
