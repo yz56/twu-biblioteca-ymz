@@ -2,11 +2,11 @@ package com.twu.biblioteca.model;
 
 public class Record {
     private String user;
-    private String book;
+    private int bookId;
 
-    public Record(String user, String book) {
+    public Record(String user, int bookId) {
         this.user = user;
-        this.book = book;
+        this.bookId = bookId;
     }
 
     public String getUser() {
@@ -17,11 +17,11 @@ public class Record {
         this.user = user;
     }
 
-    public String getBook() {
-        return book;
+    public int getBook() {
+        return bookId;
     }
 
-    public void setBook(String book) {
-        this.book = book;
+    public void setBook(int id) {
+        this.bookId = id;
     }
 }

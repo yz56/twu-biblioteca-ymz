@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.model.Record;
 import com.twu.biblioteca.model.User;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class BibliotecaApp {
     public static List<Book> staticBooks = new ArrayList<Book>();
     public static List<Movie> staticMovies = new ArrayList<Movie>();
     public static List<User> userList = new ArrayList<User>();
+    public static List<Record> recordList = new ArrayList<Record>();
     static {
         Book book0 = new Book(0, "book0", "Tony", 1993, true);
         Book book1 = new Book(1, "book1", "Jenny", 1991, true);
@@ -46,10 +48,11 @@ public class BibliotecaApp {
         List<Book> books = this.getAllBooks();
         List<Movie> movies = this.getAllMovies();
         System.out.println("\n" + welcomeMessage);
-        System.out.println("1. View list of all books");
-        System.out.println("2. Return books");
-        System.out.println("3. Quit");
-        System.out.println("4. View list of all books");
+        System.out.println("1. View list of all books(login required)");
+        System.out.println("2. Return books(login required)");
+        System.out.println("3. View list of all movies");
+        System.out.println("4. View my information");
+        System.out.println("5. Quit");
         System.out.println("Please input num of options(1 - 4)");
         Scanner s = new Scanner(System.in);
         String choice = s.next();
@@ -71,11 +74,15 @@ public class BibliotecaApp {
                     returnBook(books);
                 break;
             case "3":
-                System.out.println("Bye!");
-                return true;
-            case "4":
                 if (movies.size() != 0)
                     viewMovieList(movies);
+                break;
+            case "4":
+                    login();
+                break;
+            case "5":
+                System.out.println("Bye!");
+                return true;
             default:
                 System.out.println("Please select a valid option!");
                 break;
@@ -105,20 +112,16 @@ public class BibliotecaApp {
                         s = new Scanner(System.in);
                         String input = s.next();
                         if (input.equals("y") || input.equals("Y")) {
-                            System.out.print("Please input username:");
-                            s = new Scanner(System.in);
-                            String username = s.next();
-                            System.out.print("Please input password:");
-                            String password = s.next();
-                            boolean res = checkUser(username, password);
+                            String[] user_password = inputUserInfo();
+                            boolean res = checkUser(user_password[0], user_password[1]);
                             if(res){
                                 if (checkoutBook(books.get(id))) {
                                     staticBooks.get(id).setValid(false);
+                                    insertRecord(user_password[0], id);
                                     System.out.println("Thank you! Enjoy the book.");
                                 } else {
                                     System.out.println("Sorry, that book is not available.");
                                 }
-
                             }else{
                                 System.out.println("Sorry, username or password input error.");
                             }
@@ -152,6 +155,28 @@ public class BibliotecaApp {
         return false;
     }
 
+    public void insertRecord(String username, int id){
+        recordList.add(new Record(username, id));
+    }
+
+    public boolean removeRecord(String username, int id){
+        for (Record r : recordList){
+            if(username.equals(r.getUser()) || id == r.getBook()){
+                return true;
+            }
+        }
+        return false;
+    }
+    public String[] inputUserInfo(){
+        String[] res = new String[2];
+        Scanner s = new Scanner(System.in);
+        System.out.print("Please input username:");
+        res[0] = s.next();
+        System.out.print("Please input password:");
+        res[1] = s.next();
+        return res;
+    }
+
     private static void detailOfBook(Book book) {
         System.out.println("Detail of this book:");
         System.out.println("Name: " + book.getName());
@@ -164,19 +189,21 @@ public class BibliotecaApp {
     }
 
     public void returnBook(List<Book> books) {
-        System.out.print("Please input the name of book you want to return.: ");
-        Scanner s = new Scanner(System.in);
-        String bookName = s.next();
-
-        int id = findBookByName(bookName, books);
-        System.out.println("id = " + id);
-        ;
-        if (id != -1) {
-            staticBooks.get(id).setValid(true);
-            System.out.println(staticBooks.get(id).getIsValid());
-            System.out.println("Thank you for returning the book.");
-        } else {
-            System.out.println("That is not a valid book to return.");
+        String[] user_password = inputUserInfo();
+        boolean res = checkUser(user_password[0], user_password[1]);
+        if(res){
+            System.out.print("Please input the name of book you want to return.: ");
+            Scanner s = new Scanner(System.in);
+            String bookName = s.next();
+            int id = findBookByName(bookName, books);
+            if (id != -1) {
+                staticBooks.get(id).setValid(true);
+                System.out.println("Thank you for returning the book.");
+            } else {
+                System.out.println("That is not a valid book to return.");
+            }
+        }else{
+            System.out.println("Sorry, username or password input error.");
         }
     }
 
@@ -218,13 +245,9 @@ public class BibliotecaApp {
 
                             while(s.hasNextLine()){
                                 String in = s.next();
-                                if(in.equals("q") || in.equals("Q")){
+                                if(in.equals("q") || in.equals("Q"))
                                     return;
-                                }else{
-
-                                }
                             }
-
                         } else if (input.equals("n") || input.equals("N")) {
                             return;
                         } else {
@@ -250,5 +273,16 @@ public class BibliotecaApp {
             System.out.print("★");
         }
         System.out.println();
+    }
+    public void login() {
+        String[] user_password = inputUserInfo();
+        boolean res = checkUser(user_password[0], user_password[1]);
+        if(res){
+            User user = findUser(user_password[0]);
+            System.out.println("Personal Information:");
+            System.out.println("Name: " + user.getName());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Phone: " + user.getPhone());
+        }
     }
 }
