@@ -28,7 +28,8 @@ public class FunctionTest {
         List<Movie> movies = new ArrayList<>();
         assertEquals(false, app.choiceMenu("1",books, movies));
         assertEquals(false, app.choiceMenu("2",books, movies));
-        assertEquals(true, app.choiceMenu("3",books, movies));
+        assertEquals(false, app.choiceMenu("3",books, movies));
+        assertEquals(true, app.choiceMenu("5",books, movies));
     }
     @Test
     public void checkoutTest() {
@@ -40,12 +41,12 @@ public class FunctionTest {
     }
     @Test
     public void returnBookTest() {
-        assertEquals(true, app.findBookByName("book0", staticBooks));
-        assertEquals(true, app.findBookByName("book1", staticBooks));
-        assertEquals(true, app.findBookByName("book2", staticBooks));
-        assertEquals(false, app.findBookByName("invalid name", staticBooks));
-        assertEquals(false, app.findBookByName("", staticBooks));
-        assertEquals(false, app.findBookByName(null, staticBooks));
+        assertEquals(0, app.findBookByName("book0", staticBooks));
+        assertEquals(1, app.findBookByName("book1", staticBooks));
+        assertEquals(2, app.findBookByName("book2", staticBooks));
+        assertEquals(-1, app.findBookByName("invalid name", staticBooks));
+        assertEquals(-1, app.findBookByName("", staticBooks));
+        assertEquals(-1, app.findBookByName(null, staticBooks));
     }
     @Test
     public void viewMovieListTest() {
