@@ -24,6 +24,7 @@ public class BibliotecaApp {
         staticBooks.add(book1);
         staticBooks.add(book2);
         staticBooks.add(book3);
+        recordList.add(new Record("222-2222", 3));
         Movie movie0 = new Movie(0, "The Shawshank Redemption", "Frank Darabont", 1994, 8);
         Movie movie1 = new Movie(1, "Forrest Gump", " Robert Zemeckis", 1994, 6);
         Movie movie2 = new Movie(2, "Memento", " Christopher Nolan", 2020, 10);
@@ -32,8 +33,10 @@ public class BibliotecaApp {
         staticMovies.add(movie2);
         User user0 = new User(0,"111-1111","1","xiaohua123@gmail.com","13349392048");
         User user1 = new User(0,"222-2222","2","xiaogou124@gmail.com","13549392047");
+        User admin = new User(0,"admin","admin","admin123@gmail.com","13549392222");
         userList.add(user0);
         userList.add(user1);
+        userList.add(admin);
     }
 
     public static void main(String[] args) {
@@ -48,11 +51,12 @@ public class BibliotecaApp {
         List<Book> books = this.getAllBooks();
         List<Movie> movies = this.getAllMovies();
         System.out.println("\n" + welcomeMessage);
-        System.out.println("1. View list of all books(login required)");
-        System.out.println("2. Return books(login required)");
+        System.out.println("1. View list of all books(userLogin required)");
+        System.out.println("2. Return books(userLogin required)");
         System.out.println("3. View list of all movies");
         System.out.println("4. View my information");
-        System.out.println("5. Quit");
+        System.out.println("5. Library admin userLogin");
+        System.out.println("6. Quit");
         System.out.println("Please input num of options(1 - 4)");
         Scanner s = new Scanner(System.in);
         String choice = s.next();
@@ -78,9 +82,12 @@ public class BibliotecaApp {
                     viewMovieList(movies);
                 break;
             case "4":
-                    login();
+                    userLogin();
                 break;
             case "5":
+                    adminLogin();
+                break;
+            case "6":
                 System.out.println("Bye!");
                 return true;
             default:
@@ -162,6 +169,7 @@ public class BibliotecaApp {
     public boolean removeRecord(String username, int id){
         for (Record r : recordList){
             if(username.equals(r.getUser()) || id == r.getBook()){
+                recordList.remove(r);
                 return true;
             }
         }
@@ -198,7 +206,10 @@ public class BibliotecaApp {
             int id = findBookByName(bookName, books);
             if (id != -1) {
                 staticBooks.get(id).setValid(true);
-                System.out.println("Thank you for returning the book.");
+                if(removeRecord(user_password[0], id))
+                    System.out.println("Thank you for returning the book.");
+                else
+                    System.out.println("Return book fail.Please check book'name.");
             } else {
                 System.out.println("That is not a valid book to return.");
             }
@@ -274,7 +285,7 @@ public class BibliotecaApp {
         }
         System.out.println();
     }
-    public void login() {
+    public void userLogin() {
         String[] user_password = inputUserInfo();
         boolean res = checkUser(user_password[0], user_password[1]);
         if(res){
@@ -283,6 +294,23 @@ public class BibliotecaApp {
             System.out.println("Name: " + user.getName());
             System.out.println("Email: " + user.getEmail());
             System.out.println("Phone: " + user.getPhone());
+        }else{
+            System.out.println("Sorry, username or password error.");
+        }
+    }
+    public void adminLogin() {
+        String[] user_password = inputUserInfo();
+        if(user_password[0].equals("admin") && user_password[1].equals("admin")){
+            displayRecord();
+        }else {
+            System.out.println("Sorry, username or password error.");
+        }
+    }
+
+    public void displayRecord() {
+        System.out.println("User  Id -\tBook");
+        for (Record r : recordList) {
+            System.out.println(r.getUser() +" -\t" + staticBooks.get(r.getBook()).getName());
         }
     }
 
