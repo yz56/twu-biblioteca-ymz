@@ -39,14 +39,6 @@ public class BibliotecaApp {
         userList.add(admin);
     }
 
-    public static void main(String[] args) {
-        BibliotecaApp app = new BibliotecaApp();
-        boolean quit = false;
-        while (!quit) {
-            quit = app.displayMenu();
-        }
-    }
-
     public boolean displayMenu() {
         List<Book> books = this.getAllBooks();
         List<Movie> movies = this.getAllMovies();
@@ -147,42 +139,6 @@ public class BibliotecaApp {
                 continue;
             }
         }
-    }
-
-    public boolean checkUser(String username, String password) {
-        for(User u : userList){
-            if(username.equals(u.getName())){
-                if(password.equals(u.getPassword())){
-                    return true;
-                }else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void insertRecord(String username, int id){
-        recordList.add(new Record(username, id));
-    }
-
-    public boolean removeRecord(String username, int id){
-        for (Record r : recordList){
-            if(username.equals(r.getUser()) || id == r.getBook()){
-                recordList.remove(r);
-                return true;
-            }
-        }
-        return false;
-    }
-    public String[] inputUserInfo(){
-        String[] res = new String[2];
-        Scanner s = new Scanner(System.in);
-        System.out.print("Please input username:");
-        res[0] = s.next();
-        System.out.print("Please input password:");
-        res[1] = s.next();
-        return res;
     }
 
     private static void detailOfBook(Book book) {
@@ -307,11 +263,17 @@ public class BibliotecaApp {
         }
     }
 
-    public void displayRecord() {
-        System.out.println("User  Id -\tBook");
-        for (Record r : recordList) {
-            System.out.println(r.getUser() +" -\t" + staticBooks.get(r.getBook()).getName());
+    public boolean checkUser(String username, String password) {
+        for(User u : userList){
+            if(username.equals(u.getName())){
+                if(password.equals(u.getPassword())){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
         }
+        return false;
     }
 
     public User findUser(String s) {
@@ -320,5 +282,36 @@ public class BibliotecaApp {
                 return user;
         }
         return null;
+    }
+
+    public String[] inputUserInfo(){
+        String[] res = new String[2];
+        Scanner s = new Scanner(System.in);
+        System.out.print("Please input username:");
+        res[0] = s.next();
+        System.out.print("Please input password:");
+        res[1] = s.next();
+        return res;
+    }
+
+    public void displayRecord() {
+        System.out.println("User  Id -\tBook");
+        for (Record r : recordList) {
+            System.out.println(r.getUser() +" -\t" + staticBooks.get(r.getBook()).getName());
+        }
+    }
+
+    public void insertRecord(String username, int id){
+        recordList.add(new Record(username, id));
+    }
+
+    public boolean removeRecord(String username, int id){
+        for (Record r : recordList){
+            if(username.equals(r.getUser()) || id == r.getBook()){
+                recordList.remove(r);
+                return true;
+            }
+        }
+        return false;
     }
 }
