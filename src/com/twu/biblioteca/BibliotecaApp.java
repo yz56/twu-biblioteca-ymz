@@ -307,7 +307,7 @@ public class BibliotecaApp {
 
     public boolean removeRecord(String username, int id){
         for (Record r : recordList){
-            if(username.equals(r.getUser()) || id == r.getBook()){
+            if(username.equals(r.getUser()) && id == r.getBook()){
                 recordList.remove(r);
                 return true;
             }

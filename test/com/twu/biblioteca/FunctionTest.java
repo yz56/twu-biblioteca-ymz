@@ -59,5 +59,10 @@ public class FunctionTest {
         assertEquals(false, app.checkUser("invalidUsername","1"));
         assertEquals(false, app.checkUser("111-1111","wrongPassword"));
     }
-
+    @Test
+    public void removeBookTest(){
+        assertEquals(false, app.removeRecord("111-1111",3));
+        assertEquals(false, app.removeRecord("222-2222",1));
+        assertEquals(true, app.removeRecord("222-2222",3));
+    }
 }
